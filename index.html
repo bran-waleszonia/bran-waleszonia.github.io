@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,9 +9,16 @@
 </head>
 
 <body>
-  <header>
-    <nav>
-      <ul>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="#home">Brandon Waleszonia</a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+        <span class="sr-only">Toggle menu</span>
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+
+      <ul id="nav-menu" class="nav-menu">
         <li><a href="#home">Home</a></li>
         <li><a href="#about-me">About Me</a></li>
       </ul>
@@ -18,48 +26,90 @@
   </header>
 
   <main>
-    <section id="home">
-      <img class="profile-picture"
-           src="./resources/images/profile_picture.jpg"
-           alt="Brandon Waleszonia" />
+    <section id="home" class="section hero">
+      <div class="container hero-content">
+        <img class="profile-picture" src="./resources/images/profile_picture.jpg" alt="Brandon Waleszonia" />
+
+        <div class="hero-text">
+          <h1>Brandon Waleszonia</h1>
+          <p class="lead">
+            Veteran • Tomb Guard • Transitioning into IT
+          </p>
+
+          <div class="cta-row">
+            <a class="btn" href="#about-me">Read My Story</a>
+            <!-- Optional: Add later -->
+            <!-- <a class="btn btn-outline" href="./resources/Brandon-Waleszonia-Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a> -->
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="about-me">
-      <div class="justify">
-        <h2>Thanks for visiting and getting to know me!</h2>
+    <section id="about-me" class="section about">
+      <div class="container">
+        <div class="card">
+          <h2>Thanks for visiting and getting to know me!</h2>
 
-        <p>
-          Let me introduce myself real quick. My name is Brandon Waleszonia and was born and raised in Central Arkansas.
-          I attended Sheridan High School located in Sheridan, Arkansas. I would have graduated in 2006 but went ahead
-          and obtained my G.E.D.
-        </p>
+          <p>
+            Let me introduce myself real quick. My name is Brandon Waleszonia and was born and raised in Central Arkansas.
+            I attended Sheridan High School located in Sheridan, Arkansas. I would have graduated in 2006 but went ahead
+            and obtained my G.E.D.
+          </p>
 
-        <p>
-          In 2008, I enlisted into the United States Army, as an infantryman, and attended One Station Unit Training
-          (Basic and AIT together) at Fort Benning, Georgia. I would graduate around July of 2008, and ship to my first
-          duty station, Fort Myer, Virgina. I spent 4 years stationed there, and performed numerous ceremonies, and final
-          honors within Arlington National Cemetery. I eventually volunteered to become a Tomb Guard at the Tomb of the
-          Unknown Soldier and earned my Tomb Guard Identification Badge,
-          <a href="https://tombguard.org/guards/form" target="_blank" rel="noopener noreferrer"><strong>Badge #589</strong></a>.
-        </p>
+          <p>
+            In 2008, I enlisted into the United States Army, as an infantryman, and attended One Station Unit Training
+            (Basic and AIT together) at Fort Benning, Georgia. I would graduate around July of 2008, and ship to my first
+            duty station, Fort Myer, Virgina. I spent 4 years stationed there, and performed numerous ceremonies, and final
+            honors within Arlington National Cemetery. I eventually volunteered to become a Tomb Guard at the Tomb of the
+            Unknown Soldier and earned my Tomb Guard Identification Badge,
+            <a href="https://tombguard.org/guards/form" target="_blank" rel="noopener noreferrer"><strong>Badge #589</strong></a>.
+          </p>
 
-        <p>
-          My next assignment was at Fort Campbell, Kentucky with the 101st Airborne Division. I finished out my contract
-          there and left service and moved back to Arkansas. I started going to school, first as a pre nursing student
-          but changed my major and started delving into coding and IT related course. Life happened and I ended up leaving
-          school and working full time. From healthcare, electrical work, law enforcement and security. I've now decide
-          to jump back in and try to switch careers and this is my first step.
-        </p>
+          <p>
+            My next assignment was at Fort Campbell, Kentucky with the 101st Airborne Division. I finished out my contract
+            there and left service and moved back to Arkansas. I started going to school, first as a pre nursing student
+            but changed my major and started delving into coding and IT related course. Life happened and I ended up leaving
+            school and working full time. From healthcare, electrical work, law enforcement and security. I've now decided
+            to jump back in and try to switch careers and this is my first step.
+          </p>
 
-        <p>
-          I appreciate you reading my short biography, and come follow along with me on this journey!
-        </p>
+          <p>
+            I appreciate you reading my short biography, and come follow along with me on this journey!
+          </p>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    Brandon Waleszonia | copyright 2024
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Brandon Waleszonia</span>
+      <span class="dot">•</span>
+      <span>Copyright 2024</span>
+      <!-- Optional email later -->
+      <!-- <span class="dot">•</span>
+      <a href="mailto:bran.waleszonia@gmail.com">Email me</a> -->
+    </div>
   </footer>
+
+  <script>
+    const toggle = document.querySelector(".nav-toggle");
+    const menu = document.querySelector("#nav-menu");
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!isOpen));
+      menu.classList.toggle("open");
+    });
+
+    // Close menu after clicking a link (mobile)
+    menu.querySelectorAll("a").forEach(a => {
+      a.addEventListener("click", () => {
+        toggle.setAttribute("aria-expanded", "false");
+        menu.classList.remove("open");
+      });
+    });
+  </script>
 </body>
+
 </html>
