@@ -1,221 +1,320 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: Garamond;
-    box-sizing: border-box;
+/* ---------- Base ---------- */
+:root {
+  --bg: #0b0c10;
+  --text: #f5f5f5;
+  --muted: rgba(245, 245, 245, 0.78);
+  --card: rgba(0, 0, 0, 0.70);
+  --stroke: rgba(255, 255, 255, 0.14);
+  --accent: ghostwhite;
+
+  --radius: 16px;
+  --shadow: 0 16px 50px rgba(0, 0, 0, 0.45);
+
+  --nav-h: 68px;
 }
 
-/* ---------------- NAV ---------------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-nav {
-    position: fixed;
-    background-color: black;
-    width: 100%;
-    padding: 10px 0;
-    opacity: 0.9;
-    z-index: 1000;
-    text-align: center;
+body {
+  font-family: Garamond, Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
 }
 
-nav ul {
-    list-style: none;
+/* Prevent anchor jumps from hiding behind fixed nav */
+section { scroll-margin-top: calc(var(--nav-h) + 18px); }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Utility */
+.container {
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto;
 }
 
-nav li {
-    display: inline-block;
-    padding: 10px 15px;
-    font-size: 18px;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-nav a {
-    text-decoration: none;
-    color: ghostwhite;
+/* ---------- Header / Nav ---------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.72);
+  border-bottom: 1px solid var(--stroke);
 }
 
-nav li:hover {
-    background-color: ghostwhite;
+.nav {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto;
 }
 
-nav li:hover a {
-    color: black;
+.brand {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.4px;
+  text-decoration: none;
 }
 
-/* ---------------- HOME SECTION ---------------- */
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
 
-#home {
-    padding: 150px 20px 100px 20px;
-    text-align: center;
-    background-image: url(../resources/images/wood.jpg);
-    background-size: cover;
-    background-position: center;
+.nav-menu a {
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: background 180ms ease, transform 180ms ease;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-menu a:hover {
+  background: rgba(255, 255, 255, 0.10);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+/* Hamburger */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.hamburger {
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  display: block;
+  position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+}
+
+.hamburger::before { top: -7px; }
+.hamburger::after  { top: 7px; }
+
+/* ---------- Sections ---------- */
+.section {
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  padding: calc(var(--nav-h) + 48px) 0 72px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background images + overlay for readability */
+.hero {
+  background: url("../resources/images/wood.jpg") center / cover no-repeat;
+}
+
+.about {
+  background: url("../resources/images/smoke-and-mountains.jpg") center / cover no-repeat;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1200px 700px at 20% 10%, rgba(0, 0, 0, 0.35), transparent 60%),
+    radial-gradient(900px 600px at 80% 20%, rgba(0, 0, 0, 0.38), transparent 55%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.65));
+  pointer-events: none;
+}
+
+.section > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Hero Content ---------- */
+.hero-content {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 40px;
+  align-items: center;
 }
 
 .profile-picture {
-    width: 90%;
-    max-width: 400px;
-    height: auto;
-    border-radius: 15%;
-    border: 3px solid ghostwhite;
-    opacity: 0.95;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: var(--radius);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: var(--shadow);
+  opacity: 0.98;
 }
 
-/* ---------------- ABOUT SECTION ---------------- */
+.hero-text h1 {
+  font-size: clamp(2.2rem, 3.4vw, 3.4rem);
+  line-height: 1.1;
+  margin-bottom: 10px;
+  letter-spacing: 0.6px;
+}
 
-#about-me {
-    padding: 150px 20px;
+.lead {
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  margin-bottom: 18px;
+}
+
+.cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--text);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.30);
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+}
+
+.btn-outline {
+  background: transparent;
+}
+
+/* ---------- About Card ---------- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.card p {
+  font-size: 1.08rem;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 10px 0;
+}
+
+.card a strong {
+  letter-spacing: 0.4px;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--stroke);
+  background: rgba(0, 0, 0, 0.9);
+  padding: 18px 0;
+}
+
+.footer-inner {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dot { opacity: 0.7; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .hero-content {
+    grid-template-columns: 1fr;
     text-align: center;
-    background-image: url("../resources/images/smoke-and-mountains.jpg");
-    background-size: cover;
-    background-position: center;
-    color: ghostwhite;
+  }
+
+  .profile-picture {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .cta-row {
+    justify-content: center;
+  }
 }
 
-.justify {
-    width: 90%;
-    max-width: 800px;
-    margin: auto;
-    background-color: rgba(0, 0, 0, 0.85);
-    padding: 20px;
-    border-radius: 10px;
-    text-align: justify;
-}
+@media (max-width: 760px) {
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .nav-menu {
+    position: absolute;
+    top: calc(var(--nav-h) + 10px);
+    right: 20px;
+    left: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid var(--stroke);
+    box-shadow: var(--shadow);
+  }
 
-.justify h2 {
-    text-align: center;
-    font-size: 28px;
-    margin-bottom: 10px;
-}
+  .nav-menu.open { display: flex; }
 
-p {
-    padding: 10px 0;
-    font-size: 18px;
-    line-height: 1.6;
-}
-
-/* ---------------- FOOTER ---------------- */
-
-footer {
-    text-align: center;
-    font-size: 18px;
-    background-color: black;
-    color: ghostwhite;
-    padding: 10px 0;
-}
-
-footer a {
-    color: ghostwhite;
-}
-
-/* ---------------- MOBILE IMPROVEMENTS ---------------- */
-
-@media (max-width: 768px) {
-
-    nav li {
-        display: block;
-        padding: 10px 0;
-    }
-
-    #home {
-        padding: 120px 20px 80px 20px;
-    }
-
-    #about-me {
-        padding: 120px 20px;
-    }
-
-    .justify {
-        width: 95%;
-        padding: 15px;
-    }
-
-    p {
-        font-size: 16px;
-    }
-
-    .justify h2 {
-        font-size: 24px;
-    }
-}#home ul {
-    margin: 25px;
-    opacity: 0.90;
-}
-
-#home li {
-    display: inline;
-    border: 3px solid ghostwhite;
-    margin: 5px;
-    padding: 15px;
-    border-radius: 5px;
-    font-size: 20px;
-    background-color: black;
-
-}
-
-#home h1,
-#home h2 {
-    color: ghostwhite;
-}
-
-#about-me {
-    margin: auto;
-    padding: 200px 0;
-    height: auto;
-    text-align: center;
-    background-image: url("../resources/images/smoke-and-mountains.jpg");
-    background-size: cover;
-    color: ghostwhite;
-
-}
-
-#about-me a {
-    text-decoration: underline;
-    color: ghostwhite
-}
-
-a {
-    text-decoration: none;
-}
-
-footer {
-    text-align: center;
-    font-family: Garamond;
-    font-size: 20px;
-    background-color: black;
-    color: ghostwhite;
+  .nav-menu a {
     width: 100%;
-    padding: 20px auto;
-    height: auto;
-    margin: auto;
-    opacity: .95;
-    padding: 5px 0;
-}
-
-footer a {
-    color: ghostwhite;
-}
-
-.social-media a {
-    color: ghostwhite;
-}
-
-.justify {
-    text-align: justify;
-    width: 35%;
-    margin: auto;
-    background-color: black;
-    padding: 10px;
-    border-radius: 5%;
-    opacity: .80;
-}
-
-h1, h3, p {
-    
-    padding: 10px;
-    font-size: 20px;
-}
-
-.justify h2 {
     text-align: center;
-    font-size: 30px;
-    padding: 5px;
+    padding: 12px 14px;
+  }
+
+  .card { padding: 20px; }
+  .card p { font-size: 1.02rem; }
+}
+
+/* ---------- Reduced motion support ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .nav-menu a { transition: none; }
 }
